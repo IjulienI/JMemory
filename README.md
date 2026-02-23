@@ -19,10 +19,10 @@ As the first building block of a Data-Oriented game engine, this project aims to
 - [Mike Acton - Data-Oriented Design and C++](https://youtu.be/rX0ItVEVjHc?si=dJB75XT0kBzWcBQv)
 
 ## Roadmap : 
-Phase 1 : Define the base virtual Allocator Interface.
-Phase 2 : Implement the core logic for Linear, Stack and Pool allocators.
-Phase 3 : Build the benchmarking application and analyze the data.
-Phase 4 : Integrate the memory system into a core engine to support the upcoming ECS architecture.
+- **Phase 1** : Define the base virtual Allocator Interface.
+- **Phase 2** : Implement the core logic for Linear, Stack and Pool allocators.
+- **Phase 3** : Build the benchmarking application and analyze the data.
+- **Phase 4** : Integrate the memory system into a core engine to support the upcoming ECS architecture.
 
 ## Note : 
 This project is for personal learning and experimentation purposes.
