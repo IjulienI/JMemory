@@ -19,6 +19,7 @@ namespace JMemory
         LinearAllocator(size_t totalSize, bool autoInit = false)
         : m_Buffer(nullptr), m_BufferLength(totalSize), m_Offset(0)
         {
+            // I don't know if this can reduce de performances, ofc it does but need to check how much (it's just an if)
             if (autoInit)
             {
                 Init();
@@ -27,6 +28,7 @@ namespace JMemory
 
         ~LinearAllocator()
         {
+            // Auto free on destruction
             if (m_Buffer)
             {
                 free(m_Buffer);
@@ -35,6 +37,7 @@ namespace JMemory
 
         void Init()
         {
+            // Initializing the buffer storage
             if (!m_Buffer)
             {
                 m_Buffer = static_cast<uint8_t*>(malloc(m_BufferLength));
@@ -51,11 +54,14 @@ namespace JMemory
             // Process the new offset
             size_t newOffset = (alignedAddress - reinterpret_cast<uintptr_t>(m_Buffer)) + size;
 
+            // Check if the buffer can store the data
             if (newOffset <= m_BufferLength)
             {
                 m_Offset = newOffset;
                 return reinterpret_cast<void*>(alignedAddress);
             }
+
+            // These lines are only for unit testing purposes
 #ifdef JMEMORY_TEST_MODE
             throw std::logic_error("LinearAllocator Overflow");
 #else
@@ -67,11 +73,13 @@ namespace JMemory
 
         void Free(void*)
         {
-
+            // Did nothing on a LinearAllocator. You need to clear all the Allocator to free data.
         }
 
         void Clear()
         {
+            // Not really clear it. Just put the offset to 0 to override old data. (The old objects are not nullptr)
+            // Be careful, the destuctors of the old objects is not called!
             m_Offset = 0;
         }
 

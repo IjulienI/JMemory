@@ -35,3 +35,21 @@ TEST_CASE("LinearAllocator Basic Allocation", "[LinearAllocator]")
         REQUIRE_THROWS_AS(allocator.Allocate(100), std::logic_error);
     }
 }
+
+TEST_CASE("LinearAllocator Clear Behavior", "[LinearAllocator]") {
+    JMemory::LinearAllocator allocator(1024, true);
+
+    int* ptr1 = static_cast<int*>(allocator.Allocate(sizeof(int)));
+    *ptr1 = 42;
+
+    allocator.Clear();
+
+    REQUIRE(*ptr1 == 42);
+
+    int* ptr2 = static_cast<int*>(allocator.Allocate(sizeof(int)));
+
+    REQUIRE(ptr1 == ptr2);
+
+    *ptr2 = 99;
+    REQUIRE(*ptr1 == 99);
+}
